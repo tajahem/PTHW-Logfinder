@@ -1,0 +1,38 @@
+Usage: LogFinder [OPTION]... [PATTERN]...
+Searches for supplied PATTERN(s) in files matching log types supplied in
+".logfiles". PATTERNs follow Java regular expression syntax.
+
+[OPTION]
+-h	--help			This help file
+-v	--version		Display program version
+-d	--directory		Searches supplied directory instead of the default home	
+					directory
+-l	--log-types		Uses the supplied file to determine log files instead of
+					the configuration file	*see [Log Types] below
+-o					Changes from default "and" search to "or" search
+~~[PATTERN]			Requires that the supplied PATTERN is NOT present in the 
+					file
+
+[PATTERN]
+Any argument(s) after the options is considered a search pattern. By default
+LogFinder will search for each pattern supplied using AND logic; needing all
+supplied patterns to be matched in the file for the file to be . You can,
+however, use OR logic when you pass the -o option.
+Patterns using regular expression syntax will either need to escape escape
+characters (\\s instead of \s for a whitespace character) or enclose the regex
+in double or single quotation marks.
+eg: test\\slog(s)? and "test\slog(s)?" are equivalent
+You may also supply patterns prefixed with ~~ to exclude any results that
+contain the specified pattern.	
+
+[LOG TYPES]
+File types are specified in either PROGRAM_DIR/.logfinder/.logfiles or a file
+supplied with the -l or --logfiles option. Both regular expression and glob 
+syntax are supported. Glob syntax must be prefixed with "glob:". Regular
+expression syntax may also be specified with the prefix "regex:", however, this
+is optional.
+
+[DIRECTORIES]
+unless you specify a directory the program will attempt to read a file located
+in either /etc/logfinder or C:\Program Files\Logfinder with directories to 
+search. if it is missing or damaged you can use X to recreate it
